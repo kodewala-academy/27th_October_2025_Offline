@@ -1,5 +1,7 @@
 package com.zepto.product.service.impl;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ public class ProductServiceImpl implements IProductService {
 	@Autowired
 	ProductRepository productRepository;
 
+	@Transactional
 	@Override
 	public ProductResponse createProduct(ProductRequest productRequest) {
 
