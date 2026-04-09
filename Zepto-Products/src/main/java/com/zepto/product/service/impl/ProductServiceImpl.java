@@ -33,9 +33,11 @@ public class ProductServiceImpl implements IProductService {
 				+ " " + price + " " + soldBy);
 
 		String input = productName + qty;
-
+        
+		String status="CREATED";
+        
 		// Calling DAO / Repository Layer
-		String productId = productRepository.uploadProduct(input);
+		String productId = productRepository.uploadProduct(input, status);
 
 		ProductResponse productResponse = new ProductResponse();
 		if (productId != null) {
@@ -46,6 +48,13 @@ public class ProductServiceImpl implements IProductService {
 			productResponse.setConfirmationMsg("Unable to upload the product!");
 		}
 		return productResponse;
+	}
+
+	@Transactional
+	@Override
+	public String checkProductStatus(int productId) {
+		String status = productRepository.getProductAndCheckStatus(productId);
+		return status;
 	}
 
 }
