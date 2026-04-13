@@ -1,16 +1,16 @@
 package com.zepto.product.service.impl;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.zepto.product.entity.ProductEntity;
 import com.zepto.product.repository.ProductRepository;
 import com.zepto.product.request.ProductRequest;
 import com.zepto.product.request.ProductResponse;
 import com.zepto.product.service.IProductService;
 
-// All the business logic
+import jakarta.transaction.Transactional;
+
 @Service
 public class ProductServiceImpl implements IProductService {
 
@@ -23,38 +23,42 @@ public class ProductServiceImpl implements IProductService {
 
 		String productName = productRequest.getProductName();
 		String qty = productRequest.getQty();
-
 		String description = productRequest.getDescription();
-
 		String price = productRequest.getPrice();
 		String soldBy = productRequest.getSoldBy();
 
-		System.out.println("ProductServiceImpl -->  Received from Seller " + productName + " " + qty + " " + description
+		System.out.println("ProductServiceImpl --> Received from Seller " + productName + " " + qty + " " + description
 				+ " " + price + " " + soldBy);
 
-		String input = productName + qty;
-        
-		String status="CREATED";
-        
-		// Calling DAO / Repository Layer
-		String productId = productRepository.uploadProduct(input, status);
+		ProductEntity entity = new ProductEntity();
+		entity.setName(productName);
+		entity.setStatus("CREATED");
+		entity.setProductId(java.util.UUID.randomUUID().toString());
 
-		ProductResponse productResponse = new ProductResponse();
-		if (productId != null) {
-			productResponse.setProductId(productId);
-			productResponse.setConfirmationMsg("You product has been uploaded. It will be live on catalog soon!!");
+		ProductEntity saved = productRepository.save(entity); // Calling save method.
+
+		ProductResponse response = new ProductResponse();
+
+		if (saved != null) {
+			response.setProductId(String.valueOf(saved.getId())); // DB generated ID
+			response.setConfirmationMsg("Your product has been uploaded successfully!");
 		} else {
-			productResponse.setProductId(productId);
-			productResponse.setConfirmationMsg("Unable to upload the product!");
+			response.setConfirmationMsg("Unable to upload the product!");
 		}
-		return productResponse;
+
+		return response;
 	}
 
 	@Transactional
 	@Override
 	public String checkProductStatus(int productId) {
-		String status = productRepository.getProductAndCheckStatus(productId);
-		return status;
-	}
 
+		ProductEntity entity = productRepository.findById(productId).orElse(null);
+
+		if (entity != null) {
+			return entity.getStatus();
+		}
+
+		return "PRODUCT NOT FOUND";
+	}
 }

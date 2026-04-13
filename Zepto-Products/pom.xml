@@ -1,53 +1,75 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.zepto</groupId>
 	<artifactId>Zepto-Products</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Zepto-Products Maven Webapp</name>
-	<url>http://maven.apache.org</url>
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
-		</dependency>
 
-		<!-- Source:
-		https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
+	<properties>
+		<spring.version>6.2.16</spring.version>
+		<jakarta.persistence.version>3.1.0</jakarta.persistence.version>
+	</properties>
+
+	<dependencies>
+
+		<!-- Spring MVC -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>6.2.16</version>
-			<scope>compile</scope>
+			<version>${spring.version}</version>
 		</dependency>
 
-		<!-- Spring ORM -->
+		<!-- Spring Data JPA (MAIN) -->
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId>
-			<version>5.3.30</version>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>3.3.0</version>
 		</dependency>
 
-		<!-- Hibernate -->
+		<!-- Hibernate (JPA Provider) -->
 		<dependency>
-			<groupId>org.hibernate</groupId>
+			<groupId>org.hibernate.orm</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>5.6.15.Final</version>
+			<version>6.4.4.Final</version>
 		</dependency>
 
+		<!-- Jakarta Persistence API -->
+		<dependency>
+			<groupId>jakarta.persistence</groupId>
+			<artifactId>jakarta.persistence-api</artifactId>
+			<version>${jakarta.persistence.version}</version>
+		</dependency>
+
+		<!-- MySQL Driver -->
 		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
 			<version>8.3.0</version>
 		</dependency>
 
+		<!-- Servlet API (Required for WAR) -->
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<version>6.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13.2</version>
+			<scope>test</scope>
+		</dependency>
 
 	</dependencies>
+
 	<build>
 		<finalName>Zepto-Products</finalName>
 	</build>
+
 </project>
