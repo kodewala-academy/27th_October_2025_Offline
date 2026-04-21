@@ -9,4 +9,5 @@ public interface IProductService {
 
 	public String checkProductStatus(int productId);
 
+	public ProductResponse findProducts(String name, String status);
 }

@@ -61,4 +61,17 @@ public class ProductServiceImpl implements IProductService {
 
 		return "PRODUCT NOT FOUND";
 	}
+
+	@Override
+	public ProductResponse findProducts(String name, String status) {
+		ProductResponse response = new ProductResponse();
+
+		ProductEntity entity = productRepository.findByNameAndStatus(name, status);
+
+		response.setProductId(entity.getProductId());
+		response.setName(entity.getName());
+		response.setStatus(entity.getStatus());
+
+		return response;
+	}
 }
