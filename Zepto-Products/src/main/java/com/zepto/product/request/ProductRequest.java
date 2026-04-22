@@ -8,6 +8,16 @@ public class ProductRequest {
 	private String price;
 	private String soldBy;
 
+	public String getPriceType() {
+		return priceType;
+	}
+
+	public void setPriceType(String priceType) {
+		this.priceType = priceType;
+	}
+
+	private String priceType;
+
 	public String getProductName() {
 		return productName;
 	}

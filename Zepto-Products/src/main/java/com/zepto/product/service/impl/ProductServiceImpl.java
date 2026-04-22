@@ -3,6 +3,7 @@ package com.zepto.product.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.zepto.product.entity.PriceEntity;
 import com.zepto.product.entity.ProductEntity;
 import com.zepto.product.repository.ProductRepository;
 import com.zepto.product.request.ProductRequest;
@@ -26,15 +27,24 @@ public class ProductServiceImpl implements IProductService {
 		String description = productRequest.getDescription();
 		String price = productRequest.getPrice();
 		String soldBy = productRequest.getSoldBy();
+		String priceType = productRequest.getPriceType();
 
 		System.out.println("ProductServiceImpl --> Received from Seller " + productName + " " + qty + " " + description
 				+ " " + price + " " + soldBy);
 
+		// create price entity obj
+		PriceEntity priceEntity = new PriceEntity();
+		priceEntity.setPrice(price);
+		priceEntity.setPriceType(priceType);
+		
 		ProductEntity entity = new ProductEntity();
 		entity.setName(productName);
 		entity.setStatus("CREATED");
 		entity.setProductId(java.util.UUID.randomUUID().toString());
-
+        // set price entity 
+		entity.setPrice(priceEntity);
+        priceEntity.setProductEntity(entity);
+        
 		ProductEntity saved = productRepository.save(entity); // Calling save method.
 
 		ProductResponse response = new ProductResponse();
