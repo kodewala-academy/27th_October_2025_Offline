@@ -3,6 +3,7 @@ package com.zepto.product.entity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,7 +26,7 @@ public class ProductEntity {
 	@Column
 	private String status;
 	
-	@OneToOne(mappedBy = "productEntity" , cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "productEntity" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
 	private PriceEntity price;
 
 	public ProductEntity() {
