@@ -1,6 +1,9 @@
 package com.kodewala.location.service;
 
+import org.hibernate.query.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.kodewala.location.entity.LocationEntity;
@@ -25,6 +28,17 @@ public class LocationService {
 			status = true;
 		}
 		return status;
+	}
+
+	public void findLocation(int page, int records) {
+		Pageable pageable = PageRequest.of(page, records);
+
+		org.springframework.data.domain.Page<LocationEntity> pages = locationRepository.findAll(pageable);
+
+		for (LocationEntity location : pages.getContent()) {
+			System.out.println(location.getDeviceID() + " " + location.getId() + " " + location.getUser());
+
+		}
 	}
 
 }
