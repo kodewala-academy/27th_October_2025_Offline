@@ -25,11 +25,12 @@ public class OrderService {
 
 		orderRepository.save(entity); // Interacting with database
 
-		// Send data to kafka topic.....
-		String value = orderRequest.getItemName() + " " +orderRequest.getStatus();
-		
-		kafkaService.sendMessage("order-confirmed", null, value);
+		for (int i = 0; i <= 1000; i++) {
+			// Send data to kafka topic.....
+			String value = orderRequest.getItemName()+i + " " + orderRequest.getStatus()+i;
 
+			kafkaService.sendMessage("order-confirmed", "key123", value);
+		}
 	}
 
 }
