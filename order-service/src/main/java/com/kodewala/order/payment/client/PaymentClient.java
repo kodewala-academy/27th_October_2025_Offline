@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name = "payment-service")
+@FeignClient(name = "payment-service", configuration = TracingFeignConfig.class)
 @Component
 public interface PaymentClient {
 	@GetMapping("payment/pay/{card}/{amount}")
