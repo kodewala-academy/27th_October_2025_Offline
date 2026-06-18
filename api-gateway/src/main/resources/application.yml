@@ -5,13 +5,29 @@ spring:
   application:
     name: api-gateway
 
+  data:
+    redis:
+      host: united-marmoset-124667.upstash.io
+      port: 6379
+      password: gQAAAAAAAeb7AAIgcDEzYjY3NTU3ZWNiYWY0MjkxYmQ3NzRhNjBhMDRiNzE5NA
+      ssl:
+        enabled: true
+
   cloud:
     gateway:
-      routes:
-        - id: order-service
-          uri: lb://order-service
-          predicates:
-            - Path=/order/**
+      server:
+        webflux:
+          routes:
+            - id: order-service
+              uri: lb://order-service
+              predicates:
+                - Path=/order/**
+              filters:
+                - name: RequestRateLimiter
+                  args:
+                    key-resolver: "#{@userKeyResolver}"
+                    redis-rate-limiter.replenishRate: 10
+                    redis-rate-limiter.burstCapacity: 10
 
 eureka:
   client:

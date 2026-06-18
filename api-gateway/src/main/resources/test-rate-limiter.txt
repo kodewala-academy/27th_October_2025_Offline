@@ -1,0 +1,17 @@
+$body = '{"itemName":"Mac pro 2 TB","status":"CONFIRMED"}'
+
+1..10 | ForEach-Object {
+    try {
+        $r = Invoke-WebRequest `
+            -Uri "http://localhost:8089/order/place" `
+            -Method POST `
+            -ContentType "application/json" `
+            -Body $body `
+            -UseBasicParsing
+
+        Write-Host "SUCCESS $($r.StatusCode)"
+    }
+    catch {
+        Write-Host "FAILED $($_.Exception.Response.StatusCode.value__)"
+    }
+}
