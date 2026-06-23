@@ -9,7 +9,7 @@ spring:
     redis:
       host: united-marmoset-124667.upstash.io
       port: 6379
-      password: gQAAAAAAAeb7AAIgcDEzYjY3NTU3ZWNiYWY0MjkxYmQ3NzRhNjBhMDRiNzE5NA
+      password: xxxxxxxxxxxxxx
       ssl:
         enabled: true
 
@@ -18,8 +18,13 @@ spring:
       server:
         webflux:
           routes:
+            - id: auth-service
+              uri: lb://AUTH-SERVICE
+              predicates:
+                - Path=/auth/**
+
             - id: order-service
-              uri: lb://order-service
+              uri: lb://ORDER-SERVICE
               predicates:
                 - Path=/order/**
               filters:
