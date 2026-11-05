@@ -11,8 +11,8 @@ import com.kodewala.search.service.ProductService;
 
 @RestController
 @RequestMapping("/products")
-public class ProductController {
-
+public class ProductController 
+{
 	@Autowired
 	ProductService productService;
 
