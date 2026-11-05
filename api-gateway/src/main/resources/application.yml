@@ -7,9 +7,9 @@ spring:
 
   data:
     redis:
-      host: united-marmoset-124667.upstash.io
+      host: outgoing-falcon-199108.upstash.io
       port: 6379
-      password: xxxxxxxxxxxxxx
+      password: gQAAAAAAAwnEAAIgcDIxNjU2OTE0YjBiZDk0MTU4YmIxNjdjNjg3MmNmOWY2Nw
       ssl:
         enabled: true
 
